@@ -1,4 +1,7 @@
-﻿using SlackBotAPI.Helpers;
+﻿using SlackBotAPI.Defines.Conversations;
+using SlackBotAPI.Helpers;
+using SlackBotAPI.Models.GetConversationHistory.Request;
+using SlackBotAPI.Models.GetConversationHistory.Response;
 using SlackBotAPI.Models.GetConversationList.Request;
 using SlackBotAPI.Models.GetConversationList.Response;
 using SlackBotAPI.Models.GetUserList.Response;
@@ -57,7 +60,7 @@ namespace SlackBotAPI
         /// </summary>
         /// <param name="types"></param>
         /// <returns></returns>
-        public async Task<GetConversationListResponse> GetConversationList(string types = "im")
+        public async Task<GetConversationListResponse> GetConversationList(string types = ConversationType.IM)
             => await request.Request<GetConversationListRequest, GetConversationListResponse>(HttpMethod.Get, "conversations.list", new GetConversationListRequest
             {
                 Types = types
@@ -72,6 +75,17 @@ namespace SlackBotAPI
             => await request.Request<OpenConversationRequest, OpenConversationResponse>(HttpMethod.Post, "conversations.open", new OpenConversationRequest
             {
                 Users = users
+            });
+
+        /// <summary>
+        /// 대화 히스토리 보기
+        /// </summary>
+        /// <param name="channelId"></param>
+        /// <returns></returns>
+        public async Task<GetConversationRequestResponse> GetConversationHistory(string channelId)
+            => await request.Request<GetConversationRequestRequest, GetConversationRequestResponse>(HttpMethod.Post, "conversations.history", new GetConversationRequestRequest
+            {
+                Channel = channelId
             });
     }
 }
