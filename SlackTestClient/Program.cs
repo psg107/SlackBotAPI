@@ -1,11 +1,20 @@
 ﻿using SlackBotAPI;
 using SlackBotAPI.Defines.Conversations;
+using System.Configuration;
 using System.Diagnostics;
 
-const string TOKEN = "{ENTER_YOUT_BOT_TOKEN}";
+//설정파일
+var fileMap = new ExeConfigurationFileMap
+{
+    ExeConfigFilename = SystemEnvironment.IsDebug
+        ? "App.Debug.config"
+        : "App.Release.config"
+};
+Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
 
 //초기화
-var client = new SlackBotClient(TOKEN);
+var token = config.AppSettings.Settings["token"].Value;
+var client = new SlackBotClient(token);
 
 //사용자 정보 조회
 var userListResponse = await client.GetUserList();

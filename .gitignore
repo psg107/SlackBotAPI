@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # vshistory
 .vshistory/
+
+# config
+App.Debug.config
