@@ -14,8 +14,7 @@ namespace SlackBotAPI
 {
     public class SlackBotClient
     {
-        private readonly HttpClient client;
-        private readonly HttpClientWrapper request;
+        private readonly HttpClientWrapper client;
 
         /// <summary>
         /// 
@@ -23,13 +22,10 @@ namespace SlackBotAPI
         /// <param name="token"></param>
         public SlackBotClient(string token)
         {
-            //HttpClient
-            this.client = new HttpClient();
-            this.client.BaseAddress = new Uri("https://slack.com/api/");
-            this.client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-            //HttpClient Wrapper
-            this.request = new HttpClientWrapper(client);
+            this.client = new HttpClientWrapperBuilder()
+                .SetBaseAddress("https://slack.com/api/")
+                .SetAuthorization("Bearer", token)
+                .Build();
         }
 
         /// <summary>
@@ -38,7 +34,7 @@ namespace SlackBotAPI
         /// </summary>
         /// <returns></returns>
         public async Task<GetUserListResponse> GetUserList()
-            => await request.Request<GetUserListResponse>(HttpMethod.Get, "users.list");
+            => await client.Request<GetUserListResponse>(HttpMethod.Get, "users.list");
 
         /// <summary>
         /// 메시지 전송 <para/>
@@ -48,7 +44,7 @@ namespace SlackBotAPI
         /// <param name="text"></param>
         /// <returns></returns>
         public async Task<PostMessageResponse> PostMessage(string channelId, string text)
-            => await request.Request<PostMessageRequest, PostMessageResponse>(HttpMethod.Post, "chat.postMessage", new PostMessageRequest
+            => await client.Request<PostMessageRequest, PostMessageResponse>(HttpMethod.Post, "chat.postMessage", new PostMessageRequest
             {
                 Channel = channelId,
                 Text = text
@@ -61,7 +57,7 @@ namespace SlackBotAPI
         /// <param name="types"></param>
         /// <returns></returns>
         public async Task<GetConversationListResponse> GetConversationList(string types = ConversationType.IM)
-            => await request.Request<GetConversationListRequest, GetConversationListResponse>(HttpMethod.Get, "conversations.list", new GetConversationListRequest
+            => await client.Request<GetConversationListRequest, GetConversationListResponse>(HttpMethod.Get, "conversations.list", new GetConversationListRequest
             {
                 Types = types
             });
@@ -72,7 +68,7 @@ namespace SlackBotAPI
         /// <param name="users"></param>
         /// <returns></returns>
         public async Task<OpenConversationResponse> OpenConversation(string users) 
-            => await request.Request<OpenConversationRequest, OpenConversationResponse>(HttpMethod.Post, "conversations.open", new OpenConversationRequest
+            => await client.Request<OpenConversationRequest, OpenConversationResponse>(HttpMethod.Post, "conversations.open", new OpenConversationRequest
             {
                 Users = users
             });
@@ -83,7 +79,7 @@ namespace SlackBotAPI
         /// <param name="channelId"></param>
         /// <returns></returns>
         public async Task<GetConversationRequestResponse> GetConversationHistory(string channelId)
-            => await request.Request<GetConversationRequestRequest, GetConversationRequestResponse>(HttpMethod.Post, "conversations.history", new GetConversationRequestRequest
+            => await client.Request<GetConversationRequestRequest, GetConversationRequestResponse>(HttpMethod.Post, "conversations.history", new GetConversationRequestRequest
             {
                 Channel = channelId
             });
