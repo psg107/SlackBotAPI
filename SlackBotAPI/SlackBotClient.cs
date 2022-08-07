@@ -1,14 +1,14 @@
 ﻿using SlackBotAPI.Defines.Conversations;
 using SlackBotAPI.Helpers;
-using SlackBotAPI.Models.GetConversationHistory.Request;
-using SlackBotAPI.Models.GetConversationHistory.Response;
-using SlackBotAPI.Models.GetConversationList.Request;
-using SlackBotAPI.Models.GetConversationList.Response;
-using SlackBotAPI.Models.GetUserList.Response;
-using SlackBotAPI.Models.OpenConversation.Request;
-using SlackBotAPI.Models.OpenConversation.Response;
-using SlackBotAPI.Models.PostMessage.Request;
-using SlackBotAPI.Models.PostMessage.Response;
+using SlackBotAPI.Items.GetConversationHistory.Request;
+using SlackBotAPI.Items.GetConversationHistory.Response;
+using SlackBotAPI.Items.GetConversationList.Request;
+using SlackBotAPI.Items.GetConversationList.Response;
+using SlackBotAPI.Items.GetUserList.Response;
+using SlackBotAPI.Items.OpenConversation.Request;
+using SlackBotAPI.Items.OpenConversation.Response;
+using SlackBotAPI.Items.PostMessage.Request;
+using SlackBotAPI.Items.PostMessage.Response;
 
 namespace SlackBotAPI
 {
