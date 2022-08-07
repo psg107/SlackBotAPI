@@ -4,6 +4,7 @@ using SlackBotAPI.Items.GetConversationHistory.Request;
 using SlackBotAPI.Items.GetConversationHistory.Response;
 using SlackBotAPI.Items.GetConversationList.Request;
 using SlackBotAPI.Items.GetConversationList.Response;
+using SlackBotAPI.Items.GetUserList.Requests;
 using SlackBotAPI.Items.GetUserList.Response;
 using SlackBotAPI.Items.OpenConversation.Request;
 using SlackBotAPI.Items.OpenConversation.Response;
@@ -34,7 +35,10 @@ namespace SlackBotAPI
         /// </summary>
         /// <returns></returns>
         public async Task<GetUserListResponse> GetUserList()
-            => await client.Request<GetUserListResponse>(HttpMethod.Get, "users.list");
+            => await client.Request<GetUserListRequest, GetUserListResponse>(HttpMethod.Get, "users.list", new GetUserListRequest
+            {
+                
+            });
 
         /// <summary>
         /// 메시지 전송 <para/>
@@ -63,7 +67,8 @@ namespace SlackBotAPI
             });
 
         /// <summary>
-        /// 대화창 열기
+        /// 대화창 열기 <para/>
+        /// https://api.slack.com/methods/conversations.open
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
@@ -74,7 +79,8 @@ namespace SlackBotAPI
             });
 
         /// <summary>
-        /// 대화 히스토리 보기
+        /// 대화 히스토리 보기 <para/>
+        /// https://api.slack.com/methods/conversations.history
         /// </summary>
         /// <param name="channelId"></param>
         /// <returns></returns>

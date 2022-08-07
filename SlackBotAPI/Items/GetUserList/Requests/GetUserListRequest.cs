@@ -1,11 +1,11 @@
 ﻿using SlackBotAPI.Attributes;
 
-namespace SlackBotAPI.Items.GetConversationList.Request
+namespace SlackBotAPI.Items.GetUserList.Requests
 {
     /// <summary>
     /// 
     /// </summary>
-    public class GetConversationListRequest
+    public class GetUserListRequest
     {
         /// <summary>
         /// 
@@ -16,8 +16,8 @@ namespace SlackBotAPI.Items.GetConversationList.Request
         /// <summary>
         /// 
         /// </summary>
-        [QueryString("exclude_archived")]
-        public bool? ExcludeArchived { get; set; }
+        [QueryString("include_locale")]
+        public bool? IncludeLocale { get; set; }
 
         /// <summary>
         /// 
@@ -30,12 +30,5 @@ namespace SlackBotAPI.Items.GetConversationList.Request
         /// </summary>
         [QueryString("team_id")]
         public string TeamId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <seealso cref="SlackBotAPI.Defines.Conversations.ConversationType"/>
-        [QueryString("types")]
-        public string Types { get; set; }
     }
 }

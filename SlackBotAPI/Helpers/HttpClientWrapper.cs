@@ -42,7 +42,11 @@ namespace SlackBotAPI.Helpers
         /// <returns></returns>
         public async Task<TResponse> Request<TRequest, TResponse>(HttpMethod method, string requestUrl, TRequest request) where TRequest : class
         {
-            requestUrl += $"?{request.ToQueryString()}";
+            var queryString = request.ToQueryString();
+            if (!string.IsNullOrEmpty(queryString))
+            {
+                requestUrl += $"?{request.ToQueryString()}";
+            }
 
             var response = await client.SendAsync(new HttpRequestMessage(method, requestUrl));
             var content = await response.Content.ReadAsStringAsync();
